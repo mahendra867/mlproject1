@@ -1,20 +1,20 @@
-import logging
-import os
+import logging 
+import os  # os module helps us to create a logs directory
 from datetime import datetime
 
-LOG_FILE=f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
-logs_path=os.path.join(os.getcwd(),"logs",LOG_FILE)
+LOG_FILE=f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"  # The line of code you provided is a simple way to generate a filename that includes the current date and time. The code first uses the datetime.now() method to get the current date and time. Then, it uses the strftime() method to format the date and time as a string. The format string that is used is %m_%d_%Y_%H_%M_%S, which represents the month, day, year, hour, minute, and second. The f in front of the string literal tells Python to format the string using the strftime() method. The result of the strftime() method is then assigned to the LOG_FILE constant. The LOG_FILE constant is then used in the logging.basicConfig() method to specify the name of the log file.
+logs_path=os.path.join(os.getcwd(),"logs",LOG_FILE) # The line of code you provided is a way to combine the current working directory, the logs directory, and the LOG_FILE constant to create a path to the log file. The os.path.join() method in the os module in Python is used to combine paths. The os.path.join() method takes a number of arguments, but the most important ones are the path argument, which specifies the first path, and the *paths argument, which specifies the additional paths that will be combined with the first path. The path argument in this example is the current working directory. The *paths argument in this example is the logs directory and the LOG_FILE constant. The result of the os.path.join() method is a string that represents the path to the log file. The path to the log file is then assigned to the logs_path variable
 os.makedirs(logs_path,exist_ok=True)
 
-LOG_FILE_PATH=os.path.join(logs_path,LOG_FILE)
+LOG_FILE_PATH=os.path.join(logs_path,LOG_FILE) # The line of code you provided is a way to create the logs directory, if it does not already exist. The os.makedirs() method in the os module in Python is used to create directories. The os.makedirs() method takes a number of arguments, but the most important ones are the path argument, which specifies the path to the directory that will be created, and the exist_ok argument, which specifies whether or not the directory should be created if it already exists. The path argument in this example is the logs_path variable, which contains the path to the logs directory. The exist_ok argument in this example is set to True, which means that the directory will be created if it does not already exist. If the logs directory already exists, the os.makedirs() method will do nothing.
 
-logging.basicConfig(
-    filename=LOG_FILE_PATH,
-    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
+logging.basicConfig(            # The basicConfig() method in the logging module in Python is used to configure the logging system. It takes a number of arguments, but the most important ones are the filename argument, which specifies the name of the log file, and the format argument, which specifies the format of the log messages.
+    filename=LOG_FILE_PATH, # it is name of the log file
+    format="[ %(asctime)s ] %(lineno)d %(name)s - %(levelname)s - %(message)s", # The format argument specifies the format of the log messages. The format string can include a variety of elements, such as the time and date of the event, the line number of the code that generated the event, the name of the function that generated the event, the level of the event, and the message itself.
+    level=logging.INFO, # The basicConfig() method also takes a number of other arguments, such as the level argument, which specifies the minimum level of messages that will be logged. The level argument can be one of the following values: 1)DEBUG 2)INFO 3)WARNING 4)ERROR 5)CRITICAL
 
 
 )
 
-if __name__=="__main__":
+if __name__=="__main__":   # The line of code you provided is a conditional statement that only runs the code if the file is being run as a script. The __name__ variable in Python is a special variable that contains the name of the current module. The __main__ string is the name of the main module. The if __name__ == "__main__": statement will only be executed if the file is being run as a script. If the file is being imported into another module, the if __name__ == "__main__": statement will not be executed. In this example, the if __name__ == "__main__": statement is used to ensure that the logging code is only executed if the file is being run as a script. This is because the logging code should only be executed once, when the file is first run. If the logging code was executed every time the file was imported, it would create duplicate log entries.
     logging.info("Logging has started")
