@@ -1,30 +1,30 @@
-import sys
-from src.logger import logging
+import sys # The sys module provides access to information about the Python runtime environment
+from src.logger import logging # here src is the package which we can able to use the files which are logger,exception,utils at anywhere anytime right now iam trying to use the logger file (which is in src package) in exception file, through the src package  i imports the logging module. The logging module provides a way to log messages
 
-def error_message_detail(error,error_detail:sys):
-    _,_,exc_tb=error_detail.exc_info()
-    file_name=exc_tb.tb_frame.f_code.co_filename
+def error_message_detail(error,error_detail:sys): # This line defines the error_message_detail() function. The function takes two arguments: the error message and the error detail. The error message is the message that will be displayed when the exception is raised. The error detail is a reference to the sys module.
+    _,_,exc_tb=error_detail.exc_info() # it is a way to get the exception information from the sys module. The sys module provides access to information about the Python runtime environment. The exc_info() method of the sys module returns a tuple of three values: the exception type, the exception value, and the traceback object. The _, _, exc_tb line of code assigns the traceback object to the exc_tb variable. The traceback object contains information about the stack trace of the exception. The stack trace is a list of the functions that were called when the exception occurred. The traceback object can be used to get the file name, the line number, and the function name of the line where the exception occurred. This information can be used to create a more detailed error message.
+    file_name=exc_tb.tb_frame.f_code.co_filename # gets the file name of the Python script where the exception occurred ,exc_tb is the traceback object that contains information about the stack trace of the exception. tb_frame is an attribute of the traceback object that contains information about the frame where the exception occurred. f_code is an attribute of the frame object that contains information about the code object of the function where the exception occurred. co_filename is an attribute of the code object that contains the file name of the Python script where the function is defined. file_name is the variable that will be assigned the file name of the Python script.
     error_message="Error occured in python script name [{0}] line number [{1}] error message[{2}]".format(
-     file_name,exc_tb.tb_lineno,str(error))
+     file_name,exc_tb.tb_lineno,str(error)) #it provided creates a more detailed error message. The error message includes the file name, the line number, and the error message. The error_message line of code uses the format() method to format the error message. The format() method takes a sequence of objects as input and returns a string that contains the formatted objects. The first argument to the format() method is the file name of the Python script where the exception occurred. The second argument to the format() method is the line number of the line where the exception occurred. The third argument to the format() method is the error message. The format() method returns a string that contains the formatted error message. This string can be used to log the error message or to display the error message to the user.
 
     return error_message
 
     
 
-class CustomException(Exception):
-    def __init__(self,error_message,error_detail:sys):
-        super().__init__(error_message)
-        self.error_message=error_message_detail(error_message,error_detail=error_detail)
+class CustomException(Exception): # The fourth line sets the error_message attribute of the CustomException object. The error_message attribute is a string that contains the message that will be displayed when the exception is raised. The error_message_detail() function is used to format the error_message argument and the error_detail argument.
+    def __init__(self,error_message,error_detail:sys): # define the __init__() method for the CustomException class. The __init__() method is a special method that is called when an object of the CustomException class is created. It is used to initialize the attributes of the object. The first line of the __init__() method takes two arguments: error_message and error_detail. The error_message argument is the message that will be displayed when the exception is raised. The error_detail argument is a Python object that contains additional information about the exception.
+        super().__init__(error_message) # The second line of the __init__() method calls the super() constructor to initialize the CustomException object. The super() constructor passes the error_message argument to the Exception class constructor. The super() constructor is a special method that is used to call the constructor of the parent class. In this case, the parent class is the Exception class. The super() constructor is used to ensure that the CustomException object inherits the attributes and methods of the Exception class.
+        self.error_message=error_message_detail(error_message,error_detail=error_detail) #The fourth line sets the error_message attribute of the CustomException object. The error_message attribute is a string that contains the message that will be displayed when the exception is raised. The error_message_detail() function is used to format the error_message argument and the error_detail argument.
     
-    def __str__(self):
+    def __str__(self): # The fifth line defines a __str__() method for the CustomException class. The __str__() method is used to convert the CustomException object to a string. The __str__() method simply returns the error_message attribute of the CustomException object.
         return self.error_message
     
 
-if __name__=="__main__":
+if __name__=="__main__": # The if __name__ == "__main__": statement at the beginning of the code ensures that the code is only executed when the file is run as a script. This is because the code will not be executed when the file is imported into another Python file.
 
-    try:
+    try: #The code first defines a try block. The try block contains the code that might cause an exception. In this case, the code that might cause an exception is the line a = 1 / 0. This line will cause a ZeroDivisionError exception because it is trying to divide by zero. If the try block does not raise an exception, the code in the except block will be executed. In this case, the code in the except block will log a message to the logging module and then raise a CustomException exception. The CustomException exception is a custom exception that you defined earlier. The CustomException exception takes two arguments: the e argument and the sys argument. The e argument is the exception that was raised in the try block. The sys argument is a Python object that contains information about the system.
         a=1/0
-    except Exception as e:
+    except Exception as e: # The CustomException exception is a custom exception that you defined earlier. The CustomException exception takes two arguments: the e argument and the sys argument. The e argument is the exception that was raised in the try block. The sys argument is a Python object that contains information about the system
         logging.info("Divide by Zero")
-        raise CustomException(e,sys)
+        raise CustomException(e,sys) # The raise statement is used to raise an exception. In this case, the raise statement is used to raise a CustomException exception. The CustomException exception will be raised with the e argument and the sys argument.
     
